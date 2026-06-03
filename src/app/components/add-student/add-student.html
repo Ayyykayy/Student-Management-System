@@ -1,0 +1,186 @@
+<div class="page-wrapper">
+
+  
+  <section class="branding-panel">
+    <div class="dot-texture"></div>
+    <div class="branding-content">
+      <div class="logo-icon">
+        <span class="material-symbols-outlined">school</span>
+      </div>
+      <div class="branding-text">
+        <h1 class="branding-title">Student Management</h1>
+        <p class="branding-subtitle">Manage student records easily</p>
+      </div>
+    </div>
+  </section>
+
+  
+  <main class="form-panel">
+    <div class="form-container">
+
+      
+      <div class="form-header">
+        <div>
+          <div class="module-tag">
+            <span class="material-symbols-outlined">person_add</span>
+            <span>Enrollment Module</span>
+          </div>
+          <h2 class="form-title">Add New Student</h2>
+        </div>
+        <button class="back-btn" type="button" (click)="goBack()">
+          <span class="material-symbols-outlined">arrow_back</span>
+          Back to Dashboard
+        </button>
+      </div>
+
+      
+      <div class="alert alert-success" *ngIf="successMessage">
+        <span class="material-symbols-outlined">check_circle</span>
+        {{ successMessage }}
+      </div>
+      <div class="alert alert-error" *ngIf="errorMessage">
+        <span class="material-symbols-outlined">error</span>
+        {{ errorMessage }}
+      </div>
+
+      
+      <div class="form-card">
+        <form [formGroup]="studentForm" (ngSubmit)="onSubmit()" novalidate>
+
+          <div class="fields-grid">
+
+            
+            <div class="field-group" [class.field-valid]="isFieldValid('fullName')" [class.field-error]="isFieldInvalid('fullName')">
+              <label for="fullName">Full Name</label>
+              <input
+                id="fullName"
+                type="text"
+                formControlName="fullName"
+                placeholder="Enter student's full name"
+              />
+              <span class="field-hint error-hint" *ngIf="isFieldInvalid('fullName')">
+                Please enter a valid full name (min. 3 characters).
+              </span>
+            </div>
+
+            
+            <div class="field-group" [class.field-valid]="isFieldValid('email')" [class.field-error]="isFieldInvalid('email')">
+              <label for="email">Email Address</label>
+              <input
+                id="email"
+                type="email"
+                formControlName="email"
+                placeholder="student@university.edu"
+              />
+              <span class="field-hint error-hint" *ngIf="isFieldInvalid('email')">
+                Please enter a valid email address.
+              </span>
+            </div>
+
+            
+            <div class="field-group" [class.field-valid]="isFieldValid('course')" [class.field-error]="isFieldInvalid('course')">
+              <label for="course">Course</label>
+              <div class="select-wrap">
+                <select id="course" formControlName="course">
+                  <option value="" disabled>Select a course</option>
+                  <option *ngFor="let c of courses" [value]="c.value">{{ c.label }}</option>
+                </select>
+                <span class="material-symbols-outlined select-arrow">expand_more</span>
+              </div>
+              <span class="field-hint error-hint" *ngIf="isFieldInvalid('course')">
+                Please select a course.
+              </span>
+            </div>
+
+            
+            <div class="field-group" [class.field-valid]="isFieldValid('year')" [class.field-error]="isFieldInvalid('year')">
+              <label for="year">Year</label>
+              <div class="select-wrap">
+                <select id="year" formControlName="year">
+                  <option value="" disabled>Select year</option>
+                  <option *ngFor="let y of years" [value]="y.value">{{ y.label }}</option>
+                </select>
+                <span class="material-symbols-outlined select-arrow">expand_more</span>
+              </div>
+              <span class="field-hint error-hint" *ngIf="isFieldInvalid('year')">
+                Please select a year.
+              </span>
+            </div>
+
+            
+            <div class="field-group">
+              <label for="fatherName">Father's Name</label>
+              <input
+                id="fatherName"
+                type="text"
+                formControlName="fatherName"
+                placeholder="Enter father's name"
+              />
+            </div>
+
+            
+            <div class="field-group">
+              <label for="motherName">Mother's Name</label>
+              <input
+                id="motherName"
+                type="text"
+                formControlName="motherName"
+                placeholder="Enter mother's name"
+              />
+            </div>
+
+            
+            <div class="field-group full-width" [class.field-valid]="isFieldValid('phone')" [class.field-error]="isFieldInvalid('phone')">
+              <label for="phone">Phone Number</label>
+              <div class="input-icon-wrap">
+                <span class="material-symbols-outlined input-icon">call</span>
+                <input
+                  id="phone"
+                  type="tel"
+                  formControlName="phone"
+                  placeholder="+1 (555) 000-0000"
+                  class="with-icon"
+                />
+              </div>
+              <span class="field-hint error-hint" *ngIf="isFieldInvalid('phone')">
+                Please enter a valid phone number.
+              </span>
+            </div>
+
+          </div>
+
+          
+          <div class="form-footer">
+            <p class="footer-note">
+              By saving, you confirm that all information provided is accurate and adheres
+              to the institution's privacy policy.
+            </p>
+            <div class="footer-actions">
+              <button type="button" class="btn-clear" (click)="onClear()">Clear Form</button>
+              <button
+                type="submit"
+                class="btn-save"
+                [disabled]="isSubmitting"
+              >
+                <span *ngIf="!isSubmitting">Save Student</span>
+                <span *ngIf="isSubmitting" class="loading-state">
+                  <span class="spinner"></span> Saving…
+                </span>
+              </button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      
+      <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Academic Terms</a>
+        <a href="#">Support Center</a>
+      </div>
+
+    </div>
+  </main>
+
+</div>

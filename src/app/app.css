@@ -1,0 +1,224 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+:root {
+  --primary: #1a5f6e;
+  --primary-dark: #134a57;
+  --primary-light: #2a8fa8;
+  --accent: #e8f4f8;
+  --surface: #f5f5f0;
+  --card: #ffffff;
+  --text-dark: #1a1a1a;
+  --text-mid: #4a4a4a;
+  --text-light: #888;
+  --border: #dde4e8;
+  --danger: #c0392b;
+  --success: #1a5f6e;
+  --shadow: 0 4px 24px rgba(26,95,110,0.10);
+  --radius: 10px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--surface);
+  color: var(--text-dark);
+  min-height: 100vh;
+}
+
+/* NAVBAR */
+.navbar {
+  background: var(--primary-dark);
+  color: #fff;
+  padding: 0 2rem;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+}
+.navbar .brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.02em; }
+.navbar .logo-slot { font-size: 0.85rem; opacity: 0.7; font-style: italic; }
+
+/* AUTH LAYOUT */
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 52px);
+}
+.auth-left {
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 3rem;
+  border-right: 1px solid var(--border);
+}
+.auth-left .brand-icon {
+  width: 110px;
+  height: 110px;
+}
+.auth-left h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  color: var(--primary);
+  text-align: center;
+}
+.auth-left p {
+  color: var(--text-mid);
+  font-size: 0.88rem;
+  text-align: center;
+  max-width: 240px;
+  line-height: 1.6;
+}
+.auth-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 4rem;
+  background: var(--surface);
+}
+.auth-card {
+  width: 100%;
+  max-width: 520px;
+}
+.auth-card h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--text-dark);
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  margin-bottom: 1.8rem;
+}
+
+/* FORM ELEMENTS */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1rem; }
+.form-group label { font-size: 0.82rem; font-weight: 500; color: var(--text-mid); }
+.form-group input,
+.form-group select,
+.form-group textarea {
+  padding: 0.65rem 0.9rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  background: #fff;
+  color: var(--text-dark);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 0 0 3px rgba(42,143,168,0.13);
+}
+.form-group input::placeholder,
+.form-group select option:first-child { color: #aab; }
+
+/* PHOTO UPLOAD */
+.photo-btn {
+  display: flex; align-items: center; gap: 0.5rem;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.5rem 1rem;
+  background: #fff;
+  font-size: 0.85rem;
+  cursor: pointer;
+  color: var(--text-mid);
+  transition: border-color 0.2s;
+}
+.photo-btn:hover { border-color: var(--primary-light); }
+.register-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.6rem; }
+
+/* BUTTONS */
+.btn-primary {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+  margin-top: 0.4rem;
+}
+.btn-primary:hover { background: var(--primary-dark); box-shadow: 0 4px 16px rgba(26,95,110,0.22); }
+.btn-primary:active { transform: scale(0.99); }
+
+.btn-sm {
+  padding: 0.35rem 0.85rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.btn-edit { background: #2980b9; color: #fff; }
+.btn-delete { background: var(--danger); color: #fff; }
+.btn-sm:hover { opacity: 0.85; }
+
+.link-row { text-align: center; margin-top: 0.9rem; font-size: 0.83rem; color: var(--text-light); }
+.link-row a { color: var(--primary); text-decoration: none; font-weight: 500; }
+.link-row a:hover { text-decoration: underline; }
+
+/* REMEMBER ME */
+.remember-row { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--text-mid); margin-bottom: 0.5rem; }
+.remember-row input[type="checkbox"] { accent-color: var(--primary); }
+
+/* STUDENT LIST PAGE */
+.page-container { padding: 2.5rem 3rem; }
+.page-title { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 1.6rem; color: var(--text-dark); }
+
+/* DATA TABLE */
+.table-wrapper {
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+table { width: 100%; border-collapse: collapse; }
+thead tr { background: var(--text-dark); color: #fff; }
+thead th { padding: 0.85rem 1.2rem; text-align: left; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.03em; }
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--accent); }
+tbody td { padding: 0.8rem 1.2rem; font-size: 0.9rem; color: var(--text-mid); }
+.actions-cell { display: flex; gap: 0.4rem; }
+
+/* TOP NAV for list page */
+.top-nav {
+  background: #111;
+  color: #fff;
+  padding: 0 1.5rem;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+.top-nav .nav-brand { font-size: 0.95rem; font-weight: 600; }
+.top-nav a { color: #ccc; text-decoration: none; font-size: 0.88rem; }
+.top-nav a:hover { color: #fff; }
+
+/* MODAL / FORM PAGE */
+.form-page { padding: 2.5rem 3rem; max-width: 680px; }
+.form-page h1 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1.8rem; color: var(--text-dark); }
+.form-actions { display: flex; gap: 1rem; margin-top: 0.5rem; }
+.btn-secondary {
+  flex: 1; padding: 0.8rem; background: transparent; color: var(--primary);
+  border: 1.5px solid var(--primary); border-radius: var(--radius);
+  font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600;
+  cursor: pointer; transition: background 0.2s;
+}
+.btn-secondary:hover { background: var(--accent); }

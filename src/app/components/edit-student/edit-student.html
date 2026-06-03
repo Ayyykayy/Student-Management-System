@@ -1,0 +1,257 @@
+<main class="page-wrapper">
+
+  
+  <section class="side-pane">
+    <div class="side-top">
+      <div class="logo-row">
+        <div class="logo-icon">
+          <span class="material-symbols-outlined">school</span>
+        </div>
+        <span class="logo-name">Student Management</span>
+      </div>
+      <div class="side-hero">
+        <h1 class="side-headline">Empowering Global Academic Excellence.</h1>
+        <p class="side-body">
+          Streamline student administration with our high-density,
+          professional management suite designed for modern institutions.
+        </p>
+      </div>
+    </div>
+    <div class="side-image-wrap">
+      <img
+        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEW09RkBWrtyz0GH-8Br2Sbu5cZIdFgOpEXNwVlCBYLWmf5uraDwJs-cKqNvyjWSClpq2jn6s275LkosfwA1UznWI6zdbzjMb9ibSVIaBhskw-jUEovLLGLgiiF860ecs6Oh66wEAsQjsOZ4IbKvznshaAfliSeY9lzrWU2Y7S2CuHrXElBmvcMIPFUNCG27BYvXxa2KRuc8T04xFbJBUbiPi2UZijF5O5CyEyfPedudQWharNz2nDUQN8X9m1PEEdgXr707auAA"
+        alt="Educational management illustration"
+        class="side-img"
+      />
+    </div>
+  </section>
+
+  
+  <section class="form-pane">
+
+    
+    <header class="mobile-header">
+      <div class="mobile-logo">
+        <span class="material-symbols-outlined">school</span>
+        <span>Student Management</span>
+      </div>
+      <button class="mobile-close" (click)="onCancel()">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </header>
+
+    <div class="form-inner">
+
+      
+      <nav class="breadcrumb">
+        <a routerLink="/dashboard">Dashboard</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <a routerLink="/students">Students</a>
+        <span class="material-symbols-outlined">chevron_right</span>
+        <span class="bc-active">Edit Student</span>
+      </nav>
+
+      
+      <div class="page-heading">
+        <h2 class="page-title">Update Student Details</h2>
+        <p class="page-sub">
+          Modify the existing records for the student. Ensure all official data
+          is validated before saving.
+        </p>
+      </div>
+
+      
+      <div class="alert-error" *ngIf="loadError">
+        <span class="material-symbols-outlined">error</span>
+        {{ loadError }}
+      </div>
+
+      
+      <div class="skeleton-form" *ngIf="isLoadingStudent && !loadError">
+        <div class="skel-grid">
+          <div class="skel skel-field" *ngFor="let i of [1,2,3,4,5,6]"></div>
+          <div class="skel skel-field full-width"></div>
+        </div>
+        <div class="skel skel-btn"></div>
+      </div>
+
+      
+      <form
+        [formGroup]="studentForm"
+        (ngSubmit)="onSubmit()"
+        novalidate
+        *ngIf="!isLoadingStudent && !loadError"
+      >
+
+        
+        <div class="student-id-badge" *ngIf="student">
+          <span class="material-symbols-outlined">badge</span>
+          Student ID: <strong>#ST-{{ formatStudentId(studentId) }}</strong> 
+          &nbsp;·&nbsp;
+          <span class="badge-name">{{ student.name }}</span> 
+        </div>
+
+        
+        <div class="alert-error" *ngIf="errorMessage">
+          <span class="material-symbols-outlined">error</span>
+          {{ errorMessage }}
+        </div>
+
+        
+        <div class="alert-success" *ngIf="submitState === 'success'">
+          <span class="material-symbols-outlined">check_circle</span>
+          Student record updated successfully! Redirecting…
+        </div>
+
+        <div class="fields-grid">
+
+          
+          <div class="field-group"
+               [class.valid]="isFieldValid('fullName')"
+               [class.invalid]="isFieldInvalid('fullName')">
+            <label for="fullName">Full Name</label>
+            <input id="fullName" type="text" formControlName="fullName"
+                   placeholder="Enter full legal name" />
+            <span class="err-msg" *ngIf="isFieldInvalid('fullName')">
+              Please enter a valid name (min. 3 characters).
+            </span>
+          </div>
+
+          
+          <div class="field-group"
+               [class.valid]="isFieldValid('email')"
+               [class.invalid]="isFieldInvalid('email')">
+            <label for="email">Email Address</label>
+            <input id="email" type="email" formControlName="email"
+                   placeholder="name@institution.edu" />
+            <span class="err-msg" *ngIf="isFieldInvalid('email')">
+              Please enter a valid email address.
+            </span>
+          </div>
+
+          
+          <div class="field-group"
+               [class.valid]="isFieldValid('course')"
+               [class.invalid]="isFieldInvalid('course')">
+            <label for="course">Course</label>
+            <div class="select-wrap">
+              <select id="course" formControlName="course">
+                <option value="" disabled>Select a course</option>
+                <option *ngFor="let c of courses" [value]="c.value">{{ c.label }}</option>
+              </select>
+              <span class="material-symbols-outlined sel-arrow">expand_more</span>
+            </div>
+            <span class="err-msg" *ngIf="isFieldInvalid('course')">Please select a course.</span>
+          </div>
+
+          
+          <div class="field-group"
+               [class.valid]="isFieldValid('year')"
+               [class.invalid]="isFieldInvalid('year')">
+            <label for="year">Academic Year</label>
+            <div class="select-wrap">
+              <select id="year" formControlName="year">
+                <option value="" disabled>Select year</option>
+                <option *ngFor="let y of years" [value]="y.value">{{ y.label }}</option>
+              </select>
+              <span class="material-symbols-outlined sel-arrow">expand_more</span>
+            </div>
+            <span class="err-msg" *ngIf="isFieldInvalid('year')">Please select a year.</span>
+          </div>
+
+          
+          <div class="field-group">
+            <label for="fatherName">Father's Name</label>
+            <input id="fatherName" type="text" formControlName="fatherName"
+                   placeholder="Enter legal name" />
+          </div>
+
+          
+          <div class="field-group">
+            <label for="motherName">Mother's Name</label>
+            <input id="motherName" type="text" formControlName="motherName"
+                   placeholder="Enter legal name" />
+          </div>
+
+          
+          <div class="field-group full-width"
+               [class.valid]="isFieldValid('phone')"
+               [class.invalid]="isFieldInvalid('phone')">
+            <label for="phone">Phone Number</label>
+            <div class="phone-wrap">
+              <span class="phone-prefix">+1</span>
+              <input id="phone" type="tel" formControlName="phone"
+                     placeholder="Number without area code" class="phone-input" />
+            </div>
+            <span class="err-msg" *ngIf="isFieldInvalid('phone')">
+              Please enter a valid phone number.
+            </span>
+          </div>
+
+        </div>
+
+        
+        <div class="unsaved-notice" *ngIf="isDirty && submitState === 'idle'">
+          <span class="material-symbols-outlined">edit_note</span>
+          You have unsaved changes.
+        </div>
+
+        
+        <div class="form-actions">
+          <button
+            type="submit"
+            class="btn-update"
+            [class.btn-saving]="submitState === 'saving'"
+            [class.btn-success]="submitState === 'success'"
+            [class.btn-error]="submitState === 'error'"
+            [disabled]="isSubmitting || submitState === 'success'"
+          >
+            
+            <ng-container *ngIf="submitState === 'idle'">
+              <span class="material-symbols-outlined">save</span>
+              Update Student
+            </ng-container>
+            
+            <ng-container *ngIf="submitState === 'saving'">
+              <span class="spinner"></span>
+              Updating…
+            </ng-container>
+            
+            <ng-container *ngIf="submitState === 'success'">
+              <span class="material-symbols-outlined">check_circle</span>
+              Updated!
+            </ng-container>
+            
+            <ng-container *ngIf="submitState === 'error'">
+              <span class="material-symbols-outlined">error</span>
+              Retry Update
+            </ng-container>
+          </button>
+
+          <button type="button" class="btn-reset"
+                  (click)="onReset()" [disabled]="!isDirty || isSubmitting"
+                  title="Reset to original values">
+            <span class="material-symbols-outlined">restart_alt</span>
+            Reset
+          </button>
+
+          <button type="button" class="btn-cancel" (click)="onCancel()" [disabled]="isSubmitting">
+            Cancel
+          </button>
+        </div>
+
+      </form>
+
+      
+      <div class="form-footer" *ngIf="!isLoadingStudent">
+        <div class="footer-left">
+          <span class="material-symbols-outlined">shield</span>
+          <span>Official Data Encryption Active</span>
+        </div>
+        <span class="footer-ver">v2.4.1 Build-302</span>
+      </div>
+
+    </div>
+  </section>
+
+</main>

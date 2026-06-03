@@ -1,0 +1,109 @@
+
+<nav class="navbar">
+  <span class="brand">Affiliation Name</span>
+  <span class="logo-slot">Logo</span>
+</nav>
+
+
+<div class="auth-layout">
+  
+  <div class="auth-left">
+    <svg class="brand-icon" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="20" y="35" width="80" height="50" rx="6" fill="#1a5f6e" opacity="0.15"/>
+      <rect x="25" y="30" width="70" height="48" rx="5" fill="#1a5f6e" opacity="0.25"/>
+      <rect x="30" y="25" width="60" height="46" rx="5" fill="#1a5f6e"/>
+      <rect x="38" y="33" width="44" height="5" rx="2" fill="#fff" opacity="0.6"/>
+      <rect x="38" y="42" width="44" height="3" rx="1.5" fill="#fff" opacity="0.4"/>
+      <rect x="38" y="49" width="30" height="3" rx="1.5" fill="#fff" opacity="0.4"/>
+      <polygon points="60,8 100,28 60,38 20,28" fill="#134a57"/>
+      <polygon points="60,8 100,28 60,22" fill="#1a5f6e"/>
+      <rect x="56" y="38" width="8" height="14" fill="#134a57"/>
+      <ellipse cx="60" cy="53" rx="10" ry="4" fill="#134a57"/>
+    </svg>
+    <h2>Digital Campus Management</h2>
+    <p>Streamline admissions, student records, and academic workflows efficiently.</p>
+  </div>
+
+  
+  <div class="auth-right">
+    <div class="auth-card">
+      <div class="register-header">
+        <h1>Register Here</h1>
+        <label class="photo-btn" for="photoInput">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/><path d="M20 7h-3.2L15 4H9L7.2 7H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/>
+          </svg>
+          {{ photoName || 'Photo' }}
+          <input id="photoInput" type="file" accept="image/*" hidden (change)="onPhotoUpload($event)" />
+        </label>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Enter full name" [(ngModel)]="fullName" />
+        </div>
+        <div class="form-group">
+          <label>Date of Birth</label>
+          <input type="date" placeholder="dd/mm/yyyy" [(ngModel)]="dob" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Father Name</label>
+          <input type="text" placeholder="Enter father name" [(ngModel)]="fatherName" />
+        </div>
+        <div class="form-group">
+          <label>Mother Name</label>
+          <input type="text" placeholder="Enter mother name" [(ngModel)]="motherName" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Gender</label>
+          <select [(ngModel)]="gender">
+            <option value="" disabled selected>Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Highest Qualification</label>
+          <input type="text" placeholder="Enter qualification" [(ngModel)]="qualification" />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" placeholder="Enter email" [(ngModel)]="email" />
+        </div>
+        <div class="form-group">
+          <label>Mobile Number</label>
+          <input type="tel" placeholder="Enter mobile number" [(ngModel)]="mobile" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Aadhaar Number</label>
+        <input type="text" placeholder="Enter Aadhaar number" [(ngModel)]="aadhaar" />
+      </div>
+
+      <div class="form-group">
+        <label>Address</label>
+        <input type="text" placeholder="Enter address" [(ngModel)]="address" />
+      </div>
+
+      <div class="error-msg" *ngIf="errorMsg">{{ errorMsg }}</div>
+
+      <button class="btn-primary" (click)="onRegister()">Register</button>
+
+      <div class="link-row">
+        Already have an account? <a routerLink="/login">Login</a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+<div class="layout-wrapper">
+
+  
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="logo-icon">
+        <span class="material-symbols-outlined">school</span>
+      </div>
+      <div>
+        <h2 class="logo-title">Student Management</h2>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <a class="nav-item active" routerLink="/students">
+        <span class="material-symbols-outlined">school</span>
+        <span>Students</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="btn-new-entry" routerLink="/students/add">New Entry</button>
+    </div>
+  </aside>
+
+  
+  <div class="main-wrapper">
+
+    
+    <header class="topbar">
+      <span class="topbar-brand">Student Management</span>
+      <nav class="topbar-nav">
+        <a class="topbar-link active" routerLink="/dashboard">Dashboard</a>
+      </nav>
+      <div class="topbar-actions">
+        <button class="btn-add" routerLink="/students/add">Add Student</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+
+      
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Student Records</h1>
+          <nav class="breadcrumb">
+            <a routerLink="/dashboard">Admin</a>
+            <span class="material-symbols-outlined">chevron_right</span>
+            <span class="active">Students</span>
+          </nav>
+        </div>
+        <div class="stats-card">
+          <div class="stats-icon">
+            <span class="material-symbols-outlined">group</span>
+          </div>
+          <div>
+            <p class="stats-label">Total Students</p>
+            <h3 class="stats-count">{{ students.length }}</h3>
+          </div>
+        </div>
+      </div>
+
+      
+      <div class="alert-error" *ngIf="errorMessage">
+        <span class="material-symbols-outlined">error</span>
+        {{ errorMessage }}
+        <button (click)="errorMessage = ''">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+
+      
+      <div class="table-card">
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Year</th>
+                <th>Phone Number</th>
+                <th class="text-center">Actions</th>
+              </tr>
+            </thead>
+
+            
+            <tbody *ngIf="isLoading">
+              <tr class="skeleton-row" *ngFor="let i of [1,2,3,4,5]">
+                <td><div class="skel skel-short"></div></td>
+                <td>
+                  <div class="flex-row">
+                    <div class="skel skel-circle"></div>
+                    <div class="skel skel-medium"></div>
+                  </div>
+                </td>
+                <td><div class="skel skel-long"></div></td>
+                <td><div class="skel skel-pill"></div></td>
+                <td><div class="skel skel-short"></div></td>
+                <td><div class="skel skel-medium"></div></td>
+                <td><div class="skel skel-actions"></div></td>
+              </tr>
+            </tbody>
+
+            
+            <tbody *ngIf="!isLoading && students.length > 0">
+              <tr *ngFor="let student of students; let i = index">
+                <td class="cell-id">{{ formatStudentId(student.id) }}</td>
+                <td>
+                  <div class="name-cell">
+                    <div class="avatar" [ngClass]="getAvatarClass(i)">
+                      {{ getInitials(student.name) }}
+                    </div>
+                    <span class="student-name">{{ student.name }}</span>
+                  </div>
+                </td>
+                <td class="cell-muted">{{ student.email }}</td>
+                <td>
+                  <span class="course-badge">{{ student.course }}</span>
+                </td>
+                <td class="cell-muted">{{ student.year }}</td>
+                <td class="cell-muted">{{ student.phoneNumber }}</td>
+                <td>
+                  <div class="action-btns">
+                    <button class="btn-edit" [routerLink]="['/students/edit', student.id]" title="Edit">
+                      <span class="material-symbols-outlined">edit</span>
+                    </button>
+                    <button class="btn-delete" (click)="deleteStudent(student.id)" title="Delete">
+                      <span class="material-symbols-outlined">delete</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            
+            <tbody *ngIf="!isLoading && students.length === 0">
+              <tr>
+                <td colspan="7" class="empty-state">
+                  <span class="material-symbols-outlined empty-icon">search_off</span>
+                  <p>No students found.</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
